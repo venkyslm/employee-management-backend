@@ -17,32 +17,24 @@
         <a href="/addEmployee">Add Employee</a>
 <c:forEach var="emp" items="employees">l̥
             <table border="1">
-<thead>l̥
+<thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+<th>id</th>
+<th>name</th>
+<th>email</th>
+<th>department</th>
+<th>salary</th>
+<th>designation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>${emp.id}</td>
+<td>${emp.name}</td>
+<td>${emp.email}</td>
+<td>${emp.department}</td>
+<td>${emp.salary}</td>
+<td>${emp.designation}</td>
 </tr>
 </tbody>
 </table>
