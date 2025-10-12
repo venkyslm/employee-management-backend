@@ -16,6 +16,8 @@
     </head>
     <body>
         <h1>Welcome to Student Management App!</h1>
+        
+        <div class="container">
         <a href="/addEmployee">Add Employee</a>
         
         <c:if test="${not empty employees}">
@@ -45,5 +47,6 @@
         <c:if test="${empty employees}">
             <p>No employees found. Please add some!</p>
         </c:if>
+        </div>
     </body>
 </html>

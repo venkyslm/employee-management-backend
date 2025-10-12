@@ -8,5 +8,10 @@ body{
     background-color:buttonhighlight;
 }
 
+.container{
+    display: flex;
+    
+}
+
 
 
