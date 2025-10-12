@@ -4,10 +4,48 @@
  */
 package com.github.venkyslm.employee_management_system.controller;
 
+import com.github.venkyslm.employee_management_system.entity.Employee;
+import com.github.venkyslm.employee_management_system.service.EmployeeService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
 /**
  *
  * @author user
  */
+@Controller
 public class EmployeeController {
+    @Autowired
+    private EmployeeService employeeService;
+    
+    @GetMapping
+    public String getAllEmployees(Model model){
+        List<Employee> employees= employeeService.getAllEmployees();
+        
+        model.addAttribute("employees", employees);
+        return "view";
+    } 
+    
+    @GetMapping("/addEmployee")
+    public String showForm(Model model){
+        model.addAttribute("employee", new Employee());
+        return "form";
+    }
+    
+    @PostMapping("/addEmployee")
+    public String addEmployee(@ModelAttribute("employee") Employee employee,Model model){
+        employee=employeeService.createEmployee(employee);
+        model.addAttribute("employee", employee);
+        return "form";
+    }
+    
+    
+    
+    
     
 }

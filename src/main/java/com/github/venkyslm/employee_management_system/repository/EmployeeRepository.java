@@ -4,12 +4,13 @@
  */
 package com.github.venkyslm.employee_management_system.repository;
 
+import com.github.venkyslm.employee_management_system.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author user
  */
-public interface EmployeeRepository extends JpaRepository<Emplo, Object>{
+public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     
 }
