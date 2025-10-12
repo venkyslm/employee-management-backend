@@ -28,7 +28,7 @@ public class EmployeeController {
         List<Employee> employees= employeeService.getAllEmployees();
         
         model.addAttribute("employees", employees);
-        return "view";
+        return "list";
     } 
     
     @GetMapping("/addEmployee")
@@ -40,8 +40,7 @@ public class EmployeeController {
     @PostMapping("/addEmployee")
     public String addEmployee(@ModelAttribute("employee") Employee employee,Model model){
         employee=employeeService.createEmployee(employee);
-        model.addAttribute("employee", employee);
-        return "success";
+        return "redirect:/";
     }
     
     
