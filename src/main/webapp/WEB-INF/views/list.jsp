@@ -15,8 +15,38 @@
     <body>
         <h1>Welcome to Student Management App!</h1>
         <a href="/addEmployee">Add Employee</a>
-        <c:forEach var="emp" items="employees">
-            
-        </c:forEach>
+<c:forEach var="emp" items="employees">l̥
+            <table border="1">
+<thead>l̥
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</c:forEach>
     </body>
 </html>
