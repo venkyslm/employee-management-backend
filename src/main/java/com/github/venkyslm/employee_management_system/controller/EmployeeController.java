@@ -41,7 +41,7 @@ public class EmployeeController {
     public String addEmployee(@ModelAttribute("employee") Employee employee,Model model){
         employee=employeeService.createEmployee(employee);
         model.addAttribute("employee", employee);
-        return "form";
+        return "";
     }
     
     
