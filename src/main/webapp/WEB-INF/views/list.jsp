@@ -10,6 +10,8 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="<c:url value='/resources/css/list.css' />">
+
         <title>Home Page</title>
     </head>
     <body>
