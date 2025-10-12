@@ -39,7 +39,7 @@ public class EmployeeController {
     
     @PostMapping("/addEmployee")
     public String addEmployee(@ModelAttribute("employee") Employee employee,Model model){
-        employee=employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee);
         return "redirect:/";
     }
     

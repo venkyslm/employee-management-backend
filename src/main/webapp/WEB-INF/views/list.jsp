@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,6 +13,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>${message}</h1>
+        <h1>Welcome to Student Management App!</h1>
+        <a href="/addEmployee">Add Employee</a>
+        <c:forEach var="emp" items="employees">
+            
+        </c:forEach>
     </body>
 </html>

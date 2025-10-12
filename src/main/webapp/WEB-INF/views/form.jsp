@@ -42,5 +42,6 @@
             
             <input type="submit" value="Add Employee" />
         </form:form>
+        <a href="/">Home Page</a>
     </body>
 </html>
