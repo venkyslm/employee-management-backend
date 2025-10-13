@@ -15,10 +15,14 @@
         <title>Home Page</title>
     </head>
     <body>
+        <%@ include file="header.jsp" %>
+        
         <h1>Welcome to Student Management App!</h1>
         
-        <div class="container">
-        <a href="/addEmployee">Add Employee</a>
+
+        <a href="/addEmployee">
+            <button>Add Employee</button>
+        </a> <br/>
         
         <c:if test="${not empty employees}">
             <table border="1">
@@ -29,6 +33,7 @@
                     <th>department</th>
                     <th>salary</th>
                     <th>designation</th>
+                    <th>Options</th>
                 </tr>
                 
                 <c:forEach var="emp" items="${employees}">
@@ -39,6 +44,10 @@
                     <td>${emp.department}</td>
                     <td>${emp.salary}</td>
                     <td>${emp.designation}</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -47,6 +56,6 @@
         <c:if test="${empty employees}">
             <p>No employees found. Please add some!</p>
         </c:if>
-        </div>
+        
     </body>
 </html>

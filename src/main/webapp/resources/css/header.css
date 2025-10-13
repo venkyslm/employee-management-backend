@@ -1,0 +1,25 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between; /* moves the entire <ul> to the right */
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+}
+
+nav ul{
+    display: flex;
+    list-style: none; /* remove bullets */
+    gap: 20px; /* space between items */
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
