@@ -27,6 +27,22 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
     
+    public List<Employee> searchEmployees(String name,String email,
+            String department, String designation){
+        if(name != null && !name.isEmpty()){
+            return employeeRepository.findByNameContainingIgnoreCase(name);
+        }else if(email != null && !email.isEmpty()){
+            return employeeRepository.findByEmailContainingIgnoreCase(email);
+        }else if(department != null && !department.isEmpty()){
+            return employeeRepository.findByDepartmentContainingIgnoreCase(department);
+        }else if(designation != null && !designation.isEmpty()){
+            return employeeRepository.findByDesignationContainingIgnoreCase(designation);
+        }else{
+            return employeeRepository.findAll();
+        }
+    }
+    
+    
     
     
     
