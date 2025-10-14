@@ -21,7 +21,7 @@ public class EmployeeRestController {
     @Autowired
     private EmployeeService employeeService;
     
-    @GetMapping("/searchEmployees")
+    @GetMapping("/employees/search")
     public List<Employee> searchEmployees(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email,

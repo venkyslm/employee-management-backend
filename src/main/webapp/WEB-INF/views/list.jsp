@@ -70,8 +70,60 @@
         <c:if test="${empty employees}">
             <p id="noDataMsg">No employees found. Please add some!</p>
         </c:if>
+            
         
-        <!--Ajax Call to REST endpoint-->
-        
+        <!-- 🔧 AJAX Script -->
+<script>
+$(document).ready(function() {
+    $("#searchBtn").click(function() {
+        const name = $("#name").val().trim();
+        const email = $("#email").val().trim();
+        const department = $("#department").val().trim();
+        const designation = $("#designation").val().trim();
+
+        // AJAX call to REST endpoint
+        $.ajax({
+            url: "${pageContext.request.contextPath}/employees/search",
+            method: "GET",
+            data: {
+                name: name,
+                email: email,
+                department: department,
+                designation: designation
+            },
+            success: function(data) {
+                console.log(data);
+                let rows = "";
+                if (data.length === 0) {
+                    $("#employeeTableBody").html("");
+                    $("#noDataMsg").remove();
+                    $("#employeeTable").after("<p id='noDataMsg'>No employees found!</p>");
+                } else {
+                    data.forEach(emp => {
+                        rows += `
+                            <tr>
+                                <td>${emp.id}</td>
+                                <td>${emp.name}</td>
+                                <td>${emp.email}</td>
+                                <td>${emp.department}</td>
+                                <td>${emp.salary}</td>
+                                <td>${emp.designation}</td>
+                                <td>
+                                    <button>Edit</button>
+                                    <button>Delete</button>
+                                </td>
+                            </tr>`;
+                    });
+                    $("#employeeTableBody").html(rows);
+                    $("#noDataMsg").remove(); // remove no-data message if present
+                }
+            },
+            error: function() {
+                alert("Error fetching employee data!");
+            }
+        });
+    });
+});
+</script>
     </body>
 </html>

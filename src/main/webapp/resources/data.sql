@@ -1,0 +1,22 @@
+INSERT INTO EMPLOYEE (id, name, email, department, salary, designation) VALUES
+(1, 'Ravi Kumar', 'ravi.kumar@example.com', 'IT', '55000', 'Software Engineer'),
+(2, 'Sneha Reddy', 'sneha.reddy@example.com', 'HR', '45000', 'HR Executive'),
+(3, 'Amit Sharma', 'amit.sharma@example.com', 'Finance', '60000', 'Accountant'),
+(4, 'Priya Singh', 'priya.singh@example.com', 'IT', '70000', 'Senior Developer'),
+(5, 'Vikram Das', 'vikram.das@example.com', 'Admin', '40000', 'Office Assistant'),
+(6, 'Kavya Nair', 'kavya.nair@example.com', 'Marketing', '50000', 'Marketing Specialist'),
+(7, 'Suresh Patil', 'suresh.patil@example.com', 'Sales', '48000', 'Sales Executive'),
+(8, 'Deepika Joshi', 'deepika.joshi@example.com', 'IT', '80000', 'Tech Lead'),
+(9, 'Arjun Mehta', 'arjun.mehta@example.com', 'Finance', '65000', 'Financial Analyst'),
+(10, 'Manoj Tiwari', 'manoj.tiwari@example.com', 'Operations', '53000', 'Operations Executive'),
+(11, 'Lakshmi Rao', 'lakshmi.rao@example.com', 'IT', '72000', 'Backend Developer'),
+(12, 'Rajesh Khanna', 'rajesh.khanna@example.com', 'Admin', '42000', 'Clerk'),
+(13, 'Divya Jain', 'divya.jain@example.com', 'Sales', '47000', 'Sales Associate'),
+(14, 'Ankit Gupta', 'ankit.gupta@example.com', 'Finance', '61000', 'Junior Accountant'),
+(15, 'Neha Kapoor', 'neha.kapoor@example.com', 'Marketing', '56000', 'Content Strategist'),
+(16, 'Rahul Yadav', 'rahul.yadav@example.com', 'IT', '76000', 'Full Stack Developer'),
+(17, 'Bhavana Shetty', 'bhavana.shetty@example.com', 'HR', '49000', 'Recruiter'),
+(18, 'Sanjay Verma', 'sanjay.verma@example.com', 'IT', '85000', 'Project Manager'),
+(19, 'Meera Pillai', 'meera.pillai@example.com', 'Finance', '63000', 'Auditor'),
+(20, 'Kiran Rao', 'kiran.rao@example.com', 'Admin', '43000', 'Support Staff');
+
