@@ -15,7 +15,7 @@
         <title>Home Page</title>
     </head>
     <body>
-        <%@ include file="header.jsp" %>
+<%@ include file="header.jsp" %>
         
         <h1>Employee Management</h1>
         
@@ -34,42 +34,22 @@
             <button>Add Employee</button>
         </a> <br/>
         
-        <c:if test="${not empty employees}">
-            <table id="employeeTable" border="1">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>department</th>
-                    <th>salary</th>
-                    <th>designation</th>
-                    <th>Options</th>
-                </tr>
-                </thead>
+<table id="employeeTable" border="1">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+            <th>department</th>
+            <th>salary</th>
+            <th>designation</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody id="employeeTableBody"></tbody>
+</table>
 
-                <tbody id="employeeTableBody">
-                <c:forEach var="emp" items="${employees}">
-                <tr>
-                    <td>${emp.id}</td>
-                    <td>${emp.name}</td>
-                    <td>${emp.email}</td>
-                    <td>${emp.department}</td>
-                    <td>${emp.salary}</td>
-                    <td>${emp.designation}</td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-        
-        <c:if test="${empty employees}">
-            <p id="noDataMsg">No employees found. Please add some!</p>
-        </c:if>
+<p id="noDataMsg">No employees found. Please add some!</p>
             
         
         <!-- 🔧 AJAX Script -->
@@ -96,26 +76,22 @@ $(document).ready(function() {
                 let rows = "";
                 if (data.length === 0) {
                     $("#employeeTableBody").html("");
-                    $("#noDataMsg").remove();
-                    $("#employeeTable").after("<p id='noDataMsg'>No employees found!</p>");
+                    $("#noDataMsg").show();
                 } else {
+                    $("#noDataMsg").hide();
                     data.forEach(emp => {
-                        rows += `
-                            <tr>
-                                <td>${emp.id}</td>
-                                <td>${emp.name}</td>
-                                <td>${emp.email}</td>
-                                <td>${emp.department}</td>
-                                <td>${emp.salary}</td>
-                                <td>${emp.designation}</td>
-                                <td>
-                                    <button>Edit</button>
-                                    <button>Delete</button>
-                                </td>
-                            </tr>`;
+                        rows += 
+                            "<tr>" +
+                            "<td>" + emp.id + "</td>" +
+                            "<td>" + emp.name + "</td>" +
+                            "<td>" + emp.email + "</td>" +
+                            "<td>" + emp.department + "</td>" +
+                            "<td>" + emp.salary + "</td>" +
+                            "<td>" + emp.designation + "</td>" +
+                            "<td><button>Edit</button><button>Delete</button></td>" +
+                            "</tr>";
                     });
                     $("#employeeTableBody").html(rows);
-                    $("#noDataMsg").remove(); // remove no-data message if present
                 }
             },
             error: function() {
