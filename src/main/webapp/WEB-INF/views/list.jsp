@@ -101,5 +101,30 @@ $(document).ready(function() {
     });
 });
 </script>
+<!--JS function to load table data-->
+<script>
+    function renderTable(data){
+        let rows = "";
+        if(data.length === 0){
+            $("#employeeTableBody").html("");
+            $("#noDataMsg").show();
+        } else{
+            $("#noDataMsg").hide();
+            data.forEach(emp => {
+               rows +=
+                    "<tr>" +   
+                    "<td>" + emp.id + "</td>" +
+                    "<td>" + emp.name + "</td>" +
+                    "<td>" + emp.email + "</td>" +
+                    "<td>" + emp.department + "</td>" +
+                    "<td>" + emp.salary + "</td>" +
+                    "<td>" + emp.designation + "</td>" +
+                    "<td><button>Edit</button><button>Delete</button></td>" +
+                    "</tr>";
+            });
+            $("#employeeTableBody").html(rows);
+        }
+    }
+</script>
     </body>
 </html>
