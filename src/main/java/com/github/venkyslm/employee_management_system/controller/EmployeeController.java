@@ -25,7 +25,7 @@ public class EmployeeController {
     
     @GetMapping
     public String showEmployeeListHomePage(){
-        return "list";
+        return "list"; // This just opens list.jsp (without any data)
     }
     
     @GetMapping("/addEmployee")
