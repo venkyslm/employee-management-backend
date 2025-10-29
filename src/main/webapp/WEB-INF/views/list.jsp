@@ -59,7 +59,7 @@ $(document).ready(function() {
     // Function to populate table
     function renderTable(data){
         let rows = "";
-        if(data.length === 0){
+        if(!data || data.length === 0){
             $("#employeeTableBody").html("");
             $("#noDataMsg").show();
         } else{
@@ -80,7 +80,23 @@ $(document).ready(function() {
         }
     }
     
+    // Initial load (fetch all employees)
+    function loadAllEmployees(){
+        $.ajax({
+           url: "${pageContext.request.contextPath}/employees/all",
+           method: "GET",
+           dataType: "json",
+           success: function(data){
+               console.log("Initial load:", data);
+               renderTable(data);
+            },
+            error: function(){
+                alert("Error loading initial employees!");
+            }
+        });
+    }
     
+    // On Search
     $("#searchBtn").click(function() {
         const name = $("#name").val().trim();
         const email = $("#email").val().trim();
