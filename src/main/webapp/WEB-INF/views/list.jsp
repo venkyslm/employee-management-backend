@@ -48,25 +48,34 @@
     </thead>
     <tbody id="employeeTableBody"></tbody>
 </table>
+        
+<div id="paginationControls">
+    <button id="prevPage">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextPage">Next</button>
+</div>
 
 <p id="noDataMsg">No employees found. Please add some!</p>
             
         
         <!-- 🔧 AJAX Script -->
 <script>
-$(document).ready(function() {
-    
-    // Function to populate table
-    function renderTable(data){
+$(document).ready(function () {
+    let currentPage = 0;
+    const pageSize = 5;
+    let lastSearch = {}; // store last search filters
+
+    // Function to render table
+    function renderTable(data) {
         let rows = "";
-        if(!data || data.length === 0){
+        if (!data.content || data.content.length === 0) {
             $("#employeeTableBody").html("");
             $("#noDataMsg").show();
-        } else{
+        } else {
             $("#noDataMsg").hide();
-            data.forEach(emp => {
-               rows +=
-                    "<tr>" +   
+            data.content.forEach(emp => {
+                rows +=
+                    "<tr>" +
                     "<td>" + emp.id + "</td>" +
                     "<td>" + emp.name + "</td>" +
                     "<td>" + emp.email + "</td>" +
@@ -77,55 +86,62 @@ $(document).ready(function() {
                     "</tr>";
             });
             $("#employeeTableBody").html(rows);
+
+            $("#pageInfo").text("Page " + (data.number + 1) + " of " + data.totalPages);
+            $("#prevPage").prop("disabled", data.number === 0);
+            $("#nextPage").prop("disabled", data.number + 1 === data.totalPages);
         }
     }
-    
-    // Initial load (fetch all employees)
-    function loadAllEmployees(){
-        $.ajax({
-           url: "${pageContext.request.contextPath}/employees/all",
-           method: "GET",
-           dataType: "json",
-           success: function(data){
-               console.log("Initial load:", data);
-               renderTable(data);
-            },
-            error: function(){
-                alert("Error loading initial employees!");
-            }
-        });
-    }
-    
-    // On Search
-    $("#searchBtn").click(function() {
-        const name = $("#name").val().trim();
-        const email = $("#email").val().trim();
-        const department = $("#department").val().trim();
-        const designation = $("#designation").val().trim();
 
-        // AJAX call to REST endpoint
+    // Function to fetch employees (with or without filters)
+    function loadEmployees(page = 0, filters = {}) {
+        const url = filters.name || filters.email || filters.department || filters.designation
+            ? "${pageContext.request.contextPath}/employees/search"
+            : "${pageContext.request.contextPath}/employees/all";
+
         $.ajax({
-            url: "${pageContext.request.contextPath}/employees/search",
+            url: url,
             method: "GET",
-            data: {
-                name: name,
-                email: email,
-                department: department,
-                designation: designation
-            },
-            success: function(data) {
-                console.log("Search result:", data);
+            data: { ...filters, page: page, size: pageSize },
+            success: function (data) {
                 renderTable(data);
             },
-            error: function() {
+            error: function () {
                 alert("Error fetching employee data!");
             }
         });
+    }
+
+    // Initial load
+    loadEmployees(currentPage);
+
+    // Search button click
+    $("#searchBtn").click(function () {
+        const filters = {
+            name: $("#name").val().trim(),
+            email: $("#email").val().trim(),
+            department: $("#department").val().trim(),
+            designation: $("#designation").val().trim()
+        };
+        lastSearch = filters;
+        currentPage = 0;
+        loadEmployees(currentPage, filters);
     });
-    
-    // load all employees automatically when page opens
-    loadAllEmployees();
+
+    // Pagination controls
+    $("#prevPage").click(function () {
+        if (currentPage > 0) {
+            currentPage--;
+            loadEmployees(currentPage, lastSearch);
+        }
+    });
+
+    $("#nextPage").click(function () {
+        currentPage++;
+        loadEmployees(currentPage, lastSearch);
+    });
 });
+
 </script>
     </body>
 </html>

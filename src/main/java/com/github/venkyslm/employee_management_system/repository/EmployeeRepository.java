@@ -5,7 +5,8 @@
 package com.github.venkyslm.employee_management_system.repository;
 
 import com.github.venkyslm.employee_management_system.entity.Employee;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,8 +15,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
  
-    List<Employee> findByNameContainingIgnoreCase(String name);
-    List<Employee> findByEmailContainingIgnoreCase(String email);
-    List<Employee> findByDepartmentContainingIgnoreCase(String department);
-    List<Employee> findByDesignationContainingIgnoreCase(String designation);
+    Page<Employee> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<Employee> findByEmailContainingIgnoreCase(String email, Pageable pageable);
+    Page<Employee> findByDepartmentContainingIgnoreCase(String department, Pageable pageable);
+    Page<Employee> findByDesignationContainingIgnoreCase(String designation, Pageable pageable);
 }
