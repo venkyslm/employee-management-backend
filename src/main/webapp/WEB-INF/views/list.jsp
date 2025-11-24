@@ -4,38 +4,35 @@
     Author     : user
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<c:url value='/resources/css/list.css' />">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <title>Home Page</title>
-    </head>
-    <body>
-<%@ include file="header.jsp" %>
-        
-        <h1>Employee Management</h1>
-        
-        <!--Search Inputs-->
-        <div>
-        <input type="text" id="name" placeholder="Name" >
-        <input type="text" id="email" placeholder="Email">
-        <input type="text" id="department" placeholder="Department">
-        <input type="text" id="designation" placeholder="Desingation">
-        <button id="searchBtn">Search</button>
-        </div>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="layout/taglibs.jsp" %>
 
-        <br/>
-        
-        <a href="/addEmployee">
-            <button>Add Employee</button>
-        </a> <br/>
-        
-<table id="employeeTable" border="1">
-    <thead>
+<%
+    request.setAttribute("pageTitle", "Employee List");
+    request.setAttribute("pageCSS",
+        "<link rel='stylesheet' href='" + request.getContextPath() + "/resources/css/list.css' />");
+    request.setAttribute("pageJS",
+        "<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>");
+%>
+
+<jsp:include page="layout/header.jsp" />
+
+<div class="container mt-4">
+
+    <h1 class="mb-3">Employee Management</h1>
+
+    <div class="mb-3">
+        <input type="text" id="name" placeholder="Name" class="form-control mb-2">
+        <input type="text" id="email" placeholder="Email" class="form-control mb-2">
+        <input type="text" id="department" placeholder="Department" class="form-control mb-2">
+        <input type="text" id="designation" placeholder="Designation" class="form-control mb-2">
+        <button id="searchBtn" class="btn btn-primary w-100">Search</button>
+    </div>
+
+    <a href="/addEmployee" class="btn btn-success mb-3">Add Employee</a>
+
+    <table id="employeeTable" class="table table-bordered">
+        <thead>
         <tr>
             <th>id</th>
             <th>name</th>
@@ -45,17 +42,20 @@
             <th>designation</th>
             <th>Options</th>
         </tr>
-    </thead>
-    <tbody id="employeeTableBody"></tbody>
-</table>
-        
-<div id="paginationControls">
-    <button id="prevPage">Previous</button>
-    <span id="pageInfo"></span>
-    <button id="nextPage">Next</button>
-</div>
+        </thead>
+        <tbody id="employeeTableBody"></tbody>
+    </table>
 
-<p id="noDataMsg">No employees found. Please add some!</p>
+    <div id="paginationControls" class="d-flex justify-content-between">
+        <button id="prevPage" class="btn btn-secondary">Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage" class="btn btn-secondary">Next</button>
+    </div>
+
+    <p id="noDataMsg" style="display:none;" class="text-danger mt-3">
+        No employees found. Please add some!
+    </p>
+</div>
             
         
         <!-- 🔧 AJAX Script -->
@@ -143,5 +143,5 @@ $(document).ready(function () {
 });
 
 </script>
-    </body>
-</html>
+
+<jsp:include page="layout/footer.jsp" />
