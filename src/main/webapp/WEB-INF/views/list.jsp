@@ -74,7 +74,7 @@
 </div>
             
         
-        <!-- 🔧 AJAX Script -->
+<!-- 🔧 AJAX Script -->
 <script>
 $(document).ready(function () {
     let currentPage = 0;
