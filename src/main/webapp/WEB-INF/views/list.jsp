@@ -7,6 +7,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="layout/taglibs.jsp" %>
 
+<%-- Older Way of inserting pagetitle, css & js --%>
+<%--
 <%
     request.setAttribute("pageTitle", "Employee List");
     request.setAttribute("pageCSS",
@@ -14,25 +16,37 @@
     request.setAttribute("pageJS",
         "<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>");
 %>
+--%>
+
+<%-- Modern Way of inserting pagetitle, css & js --%>
+<c:set var="pageTitle" value="Employee List - Home" />
+<c:set var="pageCSS" value="/resources/css/list.css" />
+<c:set var="pageJS" value="https://code.jquery.com/jquery-3.6.0.min.js" />
+
+<title>${pageTitle}</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}${pageCSS}">
+<script src="${pageJS}"></script>
 
 <jsp:include page="layout/header.jsp" />
 
 <div class="container mt-4">
 
-    <h1 class="mb-3">Employee Management</h1>
+    <h1 class="mb-3 text-center">Employee Management App</h1>
 
-    <div class="mb-3">
+    <div class="mb-2 d-flex gap-3">
         <input type="text" id="name" placeholder="Name" class="form-control mb-2">
         <input type="text" id="email" placeholder="Email" class="form-control mb-2">
         <input type="text" id="department" placeholder="Department" class="form-control mb-2">
         <input type="text" id="designation" placeholder="Designation" class="form-control mb-2">
-        <button id="searchBtn" class="btn btn-primary w-100">Search</button>
+    </div>
+    
+    <div class="d-flex align-items-center gap-2 mb-2">
+        <button id="searchBtn" class="btn btn-primary flex-grow-1">Search</button>
+        <a href="/addEmployee" class="btn btn-success">Add Employee</a>
     </div>
 
-    <a href="/addEmployee" class="btn btn-success mb-3">Add Employee</a>
-
-    <table id="employeeTable" class="table table-bordered">
-        <thead>
+    <table  id="employeeTable" class="table table-bordered table-hover text-center">
+        <thead class="table-info">
         <tr>
             <th>id</th>
             <th>name</th>
@@ -46,7 +60,7 @@
         <tbody id="employeeTableBody"></tbody>
     </table>
 
-    <div id="paginationControls" class="d-flex justify-content-between">
+    <div id="paginationControls" class="d-flex justify-content-between mb-5">
         <button id="prevPage" class="btn btn-secondary">Prev</button>
         <span id="pageInfo"></span>
         <button id="nextPage" class="btn btn-secondary">Next</button>
