@@ -45,20 +45,22 @@
         <a href="/addEmployee" class="btn btn-success">Add Employee</a>
     </div>
 
+    <div class="table-responsive">
     <table  id="employeeTable" class="table table-bordered table-hover text-center">
         <thead class="table-info">
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>email</th>
-            <th>department</th>
-            <th>salary</th>
-            <th>designation</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Designation</th>
             <th>Options</th>
         </tr>
         </thead>
         <tbody id="employeeTableBody"></tbody>
     </table>
+    </div>
 
     <div id="paginationControls" class="d-flex justify-content-between mb-5">
         <button id="prevPage" class="btn btn-secondary">Prev</button>
@@ -96,7 +98,7 @@ $(document).ready(function () {
                     "<td>" + emp.department + "</td>" +
                     "<td>" + emp.salary + "</td>" +
                     "<td>" + emp.designation + "</td>" +
-                    "<td><button>Edit</button><button>Delete</button></td>" +
+                    "<td><button>Edit</button>&nbsp;&nbsp;<button>Delete</button></td>" +
                     "</tr>";
             });
             $("#employeeTableBody").html(rows);
@@ -155,7 +157,6 @@ $(document).ready(function () {
         loadEmployees(currentPage, lastSearch);
     });
 });
-
 </script>
 
 <jsp:include page="layout/footer.jsp" />
