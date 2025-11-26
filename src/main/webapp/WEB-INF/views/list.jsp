@@ -77,8 +77,8 @@
 <!-- 🔧 AJAX Script -->
 <script>
 $(document).ready(function () {
-    let currentPage = 0;
-    const pageSize = 5;
+    let currentPage = 0; // Tracks current page number
+    const pageSize = 5; // Number of employees per page
     let lastSearch = {}; // store last search filters
 
     // Function to render table
