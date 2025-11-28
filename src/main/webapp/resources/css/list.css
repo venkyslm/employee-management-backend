@@ -27,16 +27,32 @@ a button:hover{
     transition: background-color 0.5s ease-in-out;
 }
 
+.tooltip-inner {
+    background-color: rgba(0,0,0,0.5) !important; /* semi-transparent background */
+    color: #fff !important;                       /* keep text readable */
+}
+
+.tooltip-arrow::before {
+    border-top-color: rgba(0,0,0,0.5) !important; /* match arrow color */
+    border-right-color: rgba(0,0,0,0.5) !important;
+    border-bottom-color: rgba(0,0,0,0.5) !important;
+    border-left-color: rgba(0,0,0,0.5) !important;
+}
+
+#loadingSpinner, #dataContainer {
+    min-height: 300px;
+}
 
 
-table button{
+
+/*table button{
     cursor: pointer;
     padding: 5px;
     border-radius: 10px;
     background-color: crimson;
     min-width: 50px;
     font-weight: bold;
-}
+}*/
 
 
 

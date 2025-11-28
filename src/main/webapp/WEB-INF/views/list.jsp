@@ -41,11 +41,18 @@
     </div>
     
     <div class="d-flex align-items-center gap-2 mb-2">
-        <button id="searchBtn" class="btn btn-primary flex-grow-1">Search</button>
-        <a href="/addEmployee" class="btn btn-success">Add Employee</a>
+        <button id="searchBtn" class="btn flex-grow-1 fw-bold" style="background-color:#083b8c;color:#fff;">Search</button>
+<!--        <a href="/addEmployee" class="btn btn-success fw-bold">Add Employee</a>-->
+        <button class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">Add Employee</button>
+    </div>
+    
+    <!-- Loading Spinner Section -->
+    <div id="loadingSpinner" style="height: 100px; text-align:center; padding-top:25px;">
+        <div class="spinner-border text-secondary" role="status"></div>
+        <div class="mt-2 text-secondary fw-bold">Loading...</div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" id="dataContainer" style="display:none;">
     <table  id="employeeTable" class="table table-bordered table-hover text-center">
         <thead class="table-info">
         <tr>
@@ -71,7 +78,54 @@
     <p id="noDataMsg" style="display:none;" class="text-danger mt-3">
         No employees found. Please add some!
     </p>
-</div>
+    
+    
+    <!-- Modal (Add Employee) -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+                <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="/addEmployee" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Name:</label>
+                        <input class="form-control" type="text" name="name" />
+                    </div>                  
+
+                    <div class="mb-3">
+                        <label class="form-label">Email:</label>
+                        <input class="form-control" type="email" name="email" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Department:</label>
+                        <input class="form-control" type="text" name="department" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Salary:</label>
+                        <input class="form-control" type="number" name="salary" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Designation:</label>
+                        <input class="form-control" type="text" name="designation" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Employee</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!--modal ends here-->
+</div> <!--main container ends here-->
             
         
 <!-- 🔧 AJAX Script -->
@@ -87,6 +141,8 @@ $(document).ready(function () {
         if (!data.content || data.content.length === 0) {
             $("#employeeTableBody").html("");
             $("#noDataMsg").show();
+            $("#dataContainer").hide();
+            return;  
         } else {
             $("#noDataMsg").hide();
             data.content.forEach(emp => {
@@ -98,10 +154,19 @@ $(document).ready(function () {
                     "<td>" + emp.department + "</td>" +
                     "<td>" + emp.salary + "</td>" +
                     "<td>" + emp.designation + "</td>" +
-                    "<td><button>Edit</button>&nbsp;&nbsp;<button>Delete</button></td>" +
+                    "<td>" +
+                    "<button class='btn btn-sm btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Edit Employee'>Edit</button>&nbsp;&nbsp;" +
+                    "<button class='btn btn-sm btn-danger' data-bs-toggle='tooltip' data-bs-placement='right' title='Delete Employee'>Delete</button>" +
+                    "</td>" +
                     "</tr>";
             });
             $("#employeeTableBody").html(rows);
+            
+            // Reinitialize Bootstrap tooltips after dynamic content is added
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=\"tooltip\"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
 
             $("#pageInfo").text("Page " + (data.number + 1) + " of " + data.totalPages);
             $("#prevPage").prop("disabled", data.number === 0);
@@ -109,8 +174,19 @@ $(document).ready(function () {
         }
     }
 
+    let spinnerStartTime = 0;
+    const MIN_SPINNER_TIME = 500; // spinner running time
+
     // Function to fetch employees (with or without filters)
     function loadEmployees(page = 0, filters = {}) {
+        
+        // Record spinner start time
+        spinnerStartTime = Date.now();
+        
+        // Show spinner whenever loading starts
+        $("#loadingSpinner").show();
+        $("#dataContainer").hide();
+        
         const url = filters.name || filters.email || filters.department || filters.designation
             ? "${pageContext.request.contextPath}/employees/search"
             : "${pageContext.request.contextPath}/employees/all";
@@ -120,10 +196,19 @@ $(document).ready(function () {
             method: "GET",
             data: { ...filters, page: page, size: pageSize },
             success: function (data) {
-                renderTable(data);
+                    renderTable(data);     
             },
-            error: function () {
+            error: function (e) {
                 alert("Error fetching employee data!");
+            },
+            complete: function () {
+                const elapsed = Date.now() - spinnerStartTime;
+                const delay = Math.max(0, MIN_SPINNER_TIME - elapsed);
+                
+                setTimeout(() => {
+                $("#loadingSpinner").hide();
+                $("#dataContainer").show();
+                }, delay);
             }
         });
     }

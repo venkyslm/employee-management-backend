@@ -6,7 +6,6 @@ package com.github.venkyslm.employee_management_system.controller;
 
 import com.github.venkyslm.employee_management_system.entity.Employee;
 import com.github.venkyslm.employee_management_system.service.EmployeeService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
