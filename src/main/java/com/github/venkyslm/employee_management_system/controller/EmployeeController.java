@@ -30,13 +30,13 @@ public class EmployeeController {
     @GetMapping("/addEmployee")
     public String showForm(Model model){
         model.addAttribute("employee", new Employee());
-        return "form";
+        return "form"; //shows form field
     }
     
     @PostMapping("/addEmployee")
-    public String addEmployee(@ModelAttribute("employee") Employee employee,Model model){
+    public String addEmployee(@ModelAttribute("employee") Employee employee){
         employeeService.createEmployee(employee);
-        return "redirect:/";
+        return "redirect:/"; 
     }
     
     
