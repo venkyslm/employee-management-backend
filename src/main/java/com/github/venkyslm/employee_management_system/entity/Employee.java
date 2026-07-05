@@ -1,80 +1,59 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.github.venkyslm.employee_management_system.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import lombok.Data;
 
-/**
- *
- * @author user
- */
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
+@Table(name = "employees")
+@Data
 public class Employee {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @NotBlank(message = "Employee code is required")
+    private String employeeCode;
+
+    @NotBlank(message = "First name is required")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    private String lastName;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "must be a valid email")
     private String email;
+
+    @Pattern(regexp = "^\\d{10}$", message = "must contain exactly 10 digits")
+    private String phone;
+
+    @NotBlank(message = "Department is required")
     private String department;
-    private String salary;
+
+    @NotBlank(message = "Designation is required")
     private String designation;
 
-    public Long getId() {
-        return id;
-    }
+    @NotNull(message = "Salary is required")
+    @Positive(message = "must be greater than 0")
+    private BigDecimal salary;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull(message = "Joining date is required")
+    private LocalDate joiningDate;
 
-    public String getName() {
-        return name;
-    }
+    @NotBlank(message = "Status is required")
+    private String status;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private LocalDateTime createdAt;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-    
-    
-    
-    
-    
+    private LocalDateTime updatedAt;
 }
