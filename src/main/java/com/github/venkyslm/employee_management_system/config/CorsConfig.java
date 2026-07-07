@@ -18,6 +18,7 @@ public class CorsConfig {
 
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins("https://employee-management-frontend-gilt-three.vercel.app/")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
